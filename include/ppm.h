@@ -16,7 +16,9 @@ class ppm {
     public:
         ppm(int height, int width);
 
-        bool add(unsigned char value);
+        bool add_pixel(unsigned char,
+                       unsigned char,
+                       unsigned char);
 
         bool write_file(const std::string &filename);
 };

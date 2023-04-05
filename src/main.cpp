@@ -10,8 +10,8 @@
 
 int main() {
     
-    const short width  = 1920;
-    const short height = 1080;
+    const short width  = 800;
+    const short height = 600;
     // const int byte_per_pixel = 3;
 
     // auto image = new unsigned char[width * height * byte_per_pixel];
@@ -22,9 +22,9 @@ int main() {
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            map.add((int)(255 * j / width));
-            map.add((int)(255 * i / height));
-            map.add(127);
+            map.add_pixel((int)(255 * j / width), 
+                          (int)(255 * i / height),
+                          127);
         }
     }
 
