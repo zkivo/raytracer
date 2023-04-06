@@ -1,4 +1,4 @@
-app: create_dir src/main.cpp ppm.o float3.o
+build: create_dir src/main.cpp ppm.o float3.o
 	g++ src/main.cpp lib/ppm.o -Iinclude -o app.out
 
 ppm.o: src/ppm.cpp

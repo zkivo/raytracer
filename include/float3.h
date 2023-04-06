@@ -7,6 +7,7 @@ class float3 {
         float v[3];
     public:
         float3();
+        float3(const float3& e);
         float3(float e1, float e2, float e3);
 
         float  lenght();
@@ -27,9 +28,5 @@ class float3 {
         float3& operator++();
         float3& operator--();
 };
-
-using color     = float3;
-using point3    = float3;
-using vector3   = float3;
 
 #endif

@@ -7,6 +7,12 @@ float3::float3() {
     v[2] = 0;
 }
 
+float3::float3(const float3& e) {
+    v[0] = e.v[0];
+    v[1] = e.v[1];
+    v[2] = e.v[2];
+}
+
 float3::float3(float e1, float e2, float e3) {
     v[0] = e1;
     v[1] = e2;
