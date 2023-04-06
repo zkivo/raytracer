@@ -10,7 +10,8 @@ class ray {
         float3 direction;
     
     public:
-        ray(float3& origin, float3& direction);
+        ray() : origin(), direction() {}
+        ray(const float3& origin, const float3& direction);
 
         float3 origin();
         float3 direction();

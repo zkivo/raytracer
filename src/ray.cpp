@@ -1,6 +1,7 @@
+#include "float3.h"
 #include "ray.h"
 
-ray::ray(float3& origin, float3& direction) {
+ray::ray(const float3& origin, const float3& direction) {
     origin = flaot3(origin);
     direction = float3(direction);
 }

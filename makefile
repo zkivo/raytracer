@@ -1,11 +1,17 @@
-build: create_dir src/main.cpp ppm.o float3.o
+build: create_dir src/main.cpp ppm.o float3.o ray.o camera.o 
 	g++ src/main.cpp lib/ppm.o -Iinclude -o app.out
 
-ppm.o: src/ppm.cpp
+ppm.o: src/ppm.cpp include/ppm.h
 	g++ -c src/ppm.cpp	-Iinclude -o lib/ppm.o
 
-float3.o: src/float3.cpp
+float3.o: src/float3.cpp include/float3.h
 	g++ -c src/float3.cpp -Iinclude -o lib/float3.o
+
+ray.o: src/ray.cpp include/ray.h
+	g++ -c src/ray.cpp -Iinclude -o lib/ray.o
+	
+camera.o: src/camera.cpp include/camera.h
+	g++ -c src/camera.cpp -Iinclude -o lib/camera.o
 
 clean:
 	rm -rf lib
@@ -13,4 +19,4 @@ clean:
 	rm -f app.out
 
 create_dir:
-	mkdir lib
+	mkdir -p lib
