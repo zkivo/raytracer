@@ -13,8 +13,8 @@ class ray {
         ray() : origin(), direction() {}
         ray(const float3& origin, const float3& direction);
 
-        float3 origin();
-        float3 direction();
+        float3 get_origin();
+        float3 get_direction();
 
         float3 at(float t);  
 
