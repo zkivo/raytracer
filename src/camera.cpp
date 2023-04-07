@@ -12,5 +12,5 @@ ray camera::get_ray(int x, int y) {
         throw 20;
     }
     dir = eye_position + direction * focal_length;
-    return ray(eye_position, dir);
+    return ray(eye_position, dir.get_normalize());
 }

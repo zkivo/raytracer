@@ -30,6 +30,13 @@ void float3::normalize() {
     v[2] /= length;
 }
 
+float3 float3::get_normalize() {
+    float length = this->lenght();
+    return float3(this->v[0] / length,
+                  this->v[1] / length,
+                  this->v[2] / length);
+}
+
 float3 float3::unit_vector() {
     return *this / this->lenght();
 }
