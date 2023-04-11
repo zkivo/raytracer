@@ -1,10 +1,15 @@
 #include <iostream>
+#include "world.h"
 #include "ppm.h"
 
 int main() {
     
     const short width  = 800;
     const short height = 600;
+
+    world world(float3(1,0,0),
+                float3(0,1,0)
+                float3(0,0,1));
 
     ppm map(width, height);
 
