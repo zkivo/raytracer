@@ -12,6 +12,7 @@ class float3 {
 
         float  lenght();
         void   normalize();
+        float3 get_normalize();
         float  dot(const float3& e);
         float3 cross(const float3& e);
         float3 unit_vector();
