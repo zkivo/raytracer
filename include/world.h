@@ -3,14 +3,14 @@
 
 #include "float3.h"
 
-class world {
+class World {
 
     public:
         float3 x;
         float3 y;
         float3 z;
 
-    float3(float x, float y, float z) : x(x), y(y), z(z) {}
+        World(float3 x, float3 y, float3 z) : x(x), y(y), z(z) {}
 
 };
 

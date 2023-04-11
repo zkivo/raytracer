@@ -4,16 +4,16 @@
 #include "camera.h"
 #include "ppm.h"
 
-class scene {
+class Scene {
 
     private:
-        camera camera;
-        ppm    ppm;
+        Camera camera;
+        PPM    ppm;
     
     public:
-        scene(camera camera) : 
+        Scene(Camera camera) : 
             camera(camera) ,
-            ppm(ppm()){}
+            ppm(PPM(camera.vp_width, camera.vp_height)){}
 
 
 };

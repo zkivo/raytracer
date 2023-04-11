@@ -7,11 +7,11 @@ int main() {
     const short width  = 800;
     const short height = 600;
 
-    world world(float3(1,0,0),
-                float3(0,1,0)
-                float3(0,0,1));
+    World world(float3(1.0f, 0.0f, 0.0f),
+                float3(0.0f, 1.0f, 0.0f),
+                float3(0.0f, 0.0f, 1.0f));
 
-    ppm map(width, height);
+    PPM map(width, height);
 
     // std::cout << "asd" << std::endl;
 

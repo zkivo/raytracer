@@ -7,14 +7,14 @@
 #include <fstream>
 #include <string>
 
-class ppm {
+class PPM {
     private:
         int  height;
         int  width;
         int  index_map;
         unsigned char *map;
     public:
-        ppm(int height, int width);
+        PPM(int width, int height);
 
         bool add_pixel(unsigned char,
                        unsigned char,

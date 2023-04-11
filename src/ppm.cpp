@@ -3,7 +3,7 @@
 
 #include "ppm.h"
 
-ppm::ppm(int width, int height) : width(width), 
+PPM::PPM(int width, int height) : width(width), 
         height(height) {
     map = new unsigned char[width * height * 3];
     index_map = 0;
@@ -17,7 +17,7 @@ ppm::ppm(int width, int height) : width(width),
 //     return true;
 // }
 
-bool ppm::add_pixel(unsigned char r, 
+bool PPM::add_pixel(unsigned char r, 
         unsigned char g, unsigned char b) {
     if (index_map >= width * height * 3) {
         return false;
@@ -28,7 +28,7 @@ bool ppm::add_pixel(unsigned char r,
     return true;
 }
 
-bool ppm::write_file(const std::string &filename) {
+bool PPM::write_file(const std::string &filename) {
     std::ofstream file(filename);
     if (!file.is_open()) {
         return false;
