@@ -3,15 +3,14 @@
 
 #include "float3.h"
 
-class ray {
+class Ray {
 
-    private:
+    public:
         float3 origin;
         float3 direction;
-    
-    public:
-        ray() : origin(), direction() {}
-        ray(const float3& origin, const float3& direction);
+
+        Ray() : origin(), direction() {}
+        Ray(const float3& origin, const float3& direction);
 
         float3 get_origin();
         float3 get_direction();

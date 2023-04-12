@@ -1,29 +1,32 @@
 #include <iostream>
 #include "world.h"
+#include "float3.h"
 #include "ppm.h"
+#include "scene.h"
 
 int main() {
     
-    const short width  = 800;
-    const short height = 600;
+    const short height_res   = 600;
+    const float focal_length = 1;
+    const float viewport_height = 1;
+    const float aspect_ratio = 16.0f / 9.0f; 
 
     World world(float3(1.0f, 0.0f, 0.0f),
                 float3(0.0f, 1.0f, 0.0f),
                 float3(0.0f, 0.0f, 1.0f));
 
-    PPM map(width, height);
+    Camera camera(float3(0.0f,0.0f,0.0f),
+                  focal_length,
+                  viewport_height,
+                  height_res,
+                  aspect_ratio,
+                  world);
 
-    // std::cout << "asd" << std::endl;
+    PPM ppm(camera.vp_width_res, height_res);
 
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            map.add_pixel((int)(255 * j / width), 
-                          (int)(255 * i / height),
-                          127);
-        }
-    }
+    Scene scene(camera, ppm);
 
-    map.write_file("output.ppm");
+    scene.render();
 
     return 0;
 }

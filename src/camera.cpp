@@ -2,7 +2,7 @@
 #include "float3.h"
 #include "camera.h"
 
-ray Camera::get_ray(int x, int y) {
+Ray Camera::get_ray(int x, int y) {
     float3 dir; //direction of result ray
     if (x >= vp_width_res ||
         x < 0 ||
@@ -16,5 +16,5 @@ ray Camera::get_ray(int x, int y) {
           world.x * (x + 1) / vp_width_res * vp_width -
           world.y * (y + 1) / vp_height_res * vp_height;
     dir.normalize();
-    return ray(eye_position, dir);
+    return Ray(eye_position, dir);
 }

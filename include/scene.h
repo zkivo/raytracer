@@ -11,9 +11,11 @@ class Scene {
         PPM    ppm;
     
     public:
-        Scene(Camera camera) : 
+        Scene(Camera camera, PPM ppm) : 
             camera(camera) ,
-            ppm(PPM(camera.vp_width, camera.vp_height)){}
+            ppm(ppm){}
+        
+        void render();
 
 
 };
