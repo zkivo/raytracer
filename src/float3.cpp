@@ -112,6 +112,13 @@ float3& float3::operator+=(const float3& e) {
     return *this;
 }
 
+float3& float3::operator*=(const float e) {
+    this->v[0] *= e;
+    this->v[1] *= e;
+    this->v[2] *= e;
+    return *this;
+}
+
 float3& float3::operator-=(const float3& e) {
     this->v[0] -= e.v[0];
     this->v[1] -= e.v[1];

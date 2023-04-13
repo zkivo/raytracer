@@ -22,11 +22,15 @@ void Scene::render() {
             if (delta >= 0) {
                 float3 normal = ray.at(t1) - C;
                 normal.normalize();
-                ppm.add_pixel(normal.v[0] * 255,
-                              normal.v[1] * 255,
-                              normal.v[2] * 255);
+                float3 color(normal.v[0] + 1,
+                             normal.v[1] + 1,
+                             normal.v[2] + 1);
+                color *= 0.5f;
+                ppm.add_pixel(color.v[0] * 255,
+                              color.v[1] * 255,
+                              color.v[2] * 255);
             } else {
-                ppm.add_pixel(0,127,0);
+                ppm.add_pixel(0,(float)(i/camera.vp_height_res)*127,0);
             }
         }
     }

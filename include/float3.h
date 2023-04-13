@@ -25,6 +25,7 @@ class float3 {
         float3  operator/(const float e);
         bool    operator==(const float3& e);
         float3& operator+=(const float3& e);
+        float3& operator*=(const float e);
         float3& operator-=(const float3& e);
         float3& operator++();
         float3& operator--();
