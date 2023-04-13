@@ -1,3 +1,4 @@
+#include <cmath>
 #include "scene.h"
 #include "float3.h"
 #include "ray.h"
@@ -16,8 +17,14 @@ void Scene::render() {
             float  b = 2 * (B * (A - C));
             float  c = ((A - C)*(A - C)) - r * r; 
             float  delta = b * b - 4 * a * c;
+            float  t1 = (-b - std::sqrt(delta)) / 2*a; 
+            float  t2 = (-b + std::sqrt(delta)) / 2*a; 
             if (delta >= 0) {
-                ppm.add_pixel(255,0,0);
+                float3 normal = ray.at(t1) - C;
+                normal.normalize();
+                ppm.add_pixel(normal.v[0] * 255,
+                              normal.v[1] * 255,
+                              normal.v[2] * 255);
             } else {
                 ppm.add_pixel(0,127,0);
             }

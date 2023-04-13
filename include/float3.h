@@ -3,9 +3,9 @@
 
 class float3 {
 
-    private:
-        float v[3];
     public:
+        float v[3];
+
         float3();
         float3(const float3& e);
         float3(float e1, float e2, float e3);
@@ -29,5 +29,7 @@ class float3 {
         float3& operator++();
         float3& operator--();
 };
+
+
 
 #endif
