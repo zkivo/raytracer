@@ -6,9 +6,9 @@
 #include "ray.h"
 
 float3 rand_vector() {
-    float x = (float)std::rand() / (float)RAND_MAX;
-    float y = (float)std::rand() / (float)RAND_MAX;
-    float z = (float)std::rand() / (float)RAND_MAX;
+    float x = ((float)std::rand() / (float)RAND_MAX) * 2 - 1;
+    float y = ((float)std::rand() / (float)RAND_MAX) * 2 - 1;
+    float z = ((float)std::rand() / (float)RAND_MAX) * 2 - 1;
     return float3(x,y,z);
 }
 
@@ -37,7 +37,7 @@ float3 Scene::getColor(Ray& ray, Sphere* origin_sphere, int depth) {
         return float3(255,255,255)*(1-y) + float3(100,200,255)*y;
     } else {
         float3 r_vector = rand_vector().get_normalize();
-        float3 bounce_direction = (r_vector + nearest_hit.hit_point + nearest_hit.normal) - nearest_hit.hit_point;
+        float3 bounce_direction = nearest_hit.normal + r_vector;
         bounce_direction.normalize();
         Ray bounce_ray(nearest_hit.hit_point, bounce_direction);
         return getColor(bounce_ray, (Sphere*)nearest_hit.hit_sphere, depth - 1)*0.5f;
