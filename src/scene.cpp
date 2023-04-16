@@ -3,35 +3,43 @@
 #include "float3.h"
 #include "ray.h"
 
+float3 Scene::getColor(Ray& ray, int depth) {
+    if (depth = 0) {
+        return float3(0,0,0); // black
+    }
+    HasHit nearest_hit;
+    nearest_hit.hit = false;
+    bool first = true;
+    for (Sphere sphere : list_sphere) {
+        HasHit has_hit = sphere.hasHit(ray);
+        if (has_hit.hit == false) continue;
+        if (first) {
+            nearest_hit = has_hit;
+            first = false;
+            continue;
+        }
+        if (has_hit.length_ray < nearest_hit.length_ray) {
+            nearest_hit = has_hit;
+        }
+    }
+    if (nearest_hit.hit == false) {
+        float y = 0.5*(ray.direction.v[1] + 1.0);
+        return float3(255,255,255)*(1-y) + float3(100,200,255)*y;
+    } else {
+        // calculate random bouncing ray
+        // and call recursively this function with 50% absorption
+        return float3(0,0,0);
+    }
+}
+
 void Scene::render() {
     Ray ray;
+    float3 color;
     for (int i = 0; i < camera.vp_height_res; i++) {
         for (int j = 0; j < camera.vp_width_res; j++) {
             ray = camera.get_ray(j, i);
-            // suppose we have a sphere centered in (0,0,3)
-            float3 A = ray.origin;
-            float3 B = ray.direction;
-            float3 C(0,0,3);
-            float  r = 1;
-            float  a = B * B;
-            float  b = 2 * (B * (A - C));
-            float  c = ((A - C)*(A - C)) - r * r; 
-            float  delta = b * b - 4 * a * c;
-            float  t1 = (-b - std::sqrt(delta)) / 2*a; 
-            float  t2 = (-b + std::sqrt(delta)) / 2*a; 
-            if (delta >= 0) {
-                float3 normal = ray.at(t1) - C;
-                normal.normalize();
-                float3 color(normal.v[0] + 1,
-                             normal.v[1] + 1,
-                             normal.v[2] + 1);
-                color *= 0.5f;
-                ppm.add_pixel(color.v[0] * 255,
-                              color.v[1] * 255,
-                              color.v[2] * 255);
-            } else {
-                ppm.add_pixel(0,(float)(i/camera.vp_height_res)*127,0);
-            }
+            color = getColor(ray, MAX_DEPTH);
+            ppm.add_pixel(color.v[0], color.v[1], color.v[2]);
         }
     }
     ppm.write_file("output.ppm");
