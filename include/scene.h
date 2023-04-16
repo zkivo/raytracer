@@ -11,7 +11,8 @@ using std::vector;
 class Scene {
 
     public:
-        const int MAX_DEPTH = 5;
+        const int MAX_DEPTH = 10;
+        const int SAMPLE_PER_RAY = 20;
         Camera         camera;
         PPM            ppm;
         vector<Sphere> list_sphere;
