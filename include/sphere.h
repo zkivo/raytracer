@@ -6,9 +6,11 @@
 #include "ray.h"
 
 struct HasHit {
-    bool   hit;
-    float3 hit_point;
-    float  length_ray;
+    bool    hit;
+    float3  hit_point;
+    float3  normal;
+    float   length_ray;
+    void*   hit_sphere;
 };
 
 class Sphere {
@@ -29,8 +31,8 @@ inline HasHit Sphere::hasHit(Ray& ray) {
     ret.hit = false;
     float3 A = ray.origin;
     float3 B = ray.direction;
-    float3 C = this->center;
-    float  r = 1;
+    float3 C = center;
+    float  r = radius;
     float  a = B * B;
     float  b = 2 * (B * (A - C));
     float  c = ((A - C)*(A - C)) - r * r; 
@@ -50,6 +52,8 @@ inline HasHit Sphere::hasHit(Ray& ray) {
         }
         ret.hit = true;
         ret.hit_point = ray.at(t);
+        ret.normal = (ret.hit_point - center).get_normalize();
+        ret.hit_sphere = this;
     }
     return ret;
 }

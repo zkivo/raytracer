@@ -11,7 +11,7 @@ using std::vector;
 class Scene {
 
     public:
-        const int MAX_DEPTH = 50;
+        const int MAX_DEPTH = 5;
         Camera         camera;
         PPM            ppm;
         vector<Sphere> list_sphere;
@@ -20,12 +20,12 @@ class Scene {
                 camera(camera) ,
                 ppm(ppm) {
             list_sphere.push_back(Sphere(float3(0,0,3),  1.0f));
-            list_sphere.push_back(Sphere(float3(1,0,3),  1.0f));
-            list_sphere.push_back(Sphere(float3(-2,0,3), 1.0f));
+            list_sphere.push_back(Sphere(float3(2,0,4),  1.0f));
+            list_sphere.push_back(Sphere(float3(-2,0,4), 1.0f));
         }
 
         void   render();
-        float3 getColor(Ray&, int);
+        float3 getColor(Ray&, Sphere*, int);
 
 
 };
