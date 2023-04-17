@@ -15,12 +15,42 @@ struct HasHit {
 
 class Sphere {
 
+    /*
+        The Sphere absorb ligth internally (attenuation)
+            the rest is reflected.
+        Diffuse contains how much ligth is diffused interpotated with albedo
+        Mirror contains how much ligth is reflected
+    */
+
     public:
         float3 center;
+        float3 albedo; // color
+        float  attenuation; // 0-1
+        float  albedo_diffuse; // 0-1
+        float  sky_diffuse; // 0-1
+        float  mirror_reflection; // 0-1
         float  radius;
 
-        Sphere(float3 center, float radius) : 
-            center(center), radius(radius) {}
+        Sphere(float3 center, 
+               float radius,
+               float3 abledo,
+               float attenuation,
+               float albedo_diffuse,
+               float sky_diffuse,
+               float mirror_reflection) : 
+               center(center), 
+               radius(radius),
+               albedo(albedo) {
+            // float reflectance = 1.0f - attenuation;
+            // this->mirror_reflection = mirror_reflection / reflectance;
+            // this->albedo_diffuse = albedo_diffuse / (albedo_diffuse + sky_diffuse) * reflectance;
+            // this->sky_diffuse    = sky_diffuse / (albedo_diffuse + sky_diffuse) * reflectance;
+            float sum = albedo_diffuse + sky_diffuse + mirror_reflection + attenuation;
+            this->albedo_diffuse    = albedo_diffuse / sum;
+            this->sky_diffuse       = sky_diffuse / sum;
+            this->mirror_reflection = mirror_reflection / sum;
+            this->attenuation       = attenuation / sum;
+        }
 
         HasHit hasHit(Ray& ray);
 
@@ -53,7 +83,7 @@ inline HasHit Sphere::hasHit(Ray& ray) {
         ret.hit = true;
         ret.hit_point = ray.at(t);
         ret.normal = (ret.hit_point - center).get_normalize();
-        ret.hit_sphere = this;
+        ret.hit_sphere = (void*)this;
     }
     return ret;
 }

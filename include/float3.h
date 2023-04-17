@@ -18,6 +18,7 @@ class float3 {
         float  dot(const float3& e);
         float3 cross(const float3& e);
         float3 unit_vector();
+        void   clearNAN();
 
         float3& operator=(const float3& e);
         float3  operator+(const float3& e);
@@ -26,6 +27,7 @@ class float3 {
         float3  operator*(const float e);
         float3  operator/(const float e);
         bool    operator==(const float3& e);
+        bool    operator!=(const float3& e);
         float3& operator+=(const float3& e);
         float3& operator*=(const float e);
         float3& operator-=(const float3& e);
@@ -137,6 +139,12 @@ inline bool float3::operator==(const float3& e) {
            (this->v[2] == e.v[2]);
 }
 
+inline bool float3::operator!=(const float3& e) {
+    return (this->v[0] != e.v[0]) ||
+           (this->v[1] != e.v[1]) || 
+           (this->v[2] != e.v[2]);
+}
+
 inline float3& float3::operator+=(const float3& e) {
     this->v[0] += e.v[0];
     this->v[1] += e.v[1];
@@ -170,6 +178,12 @@ inline float3& float3::operator--() {
     this->v[1]--;
     this->v[2]--;
     return *this;
+}
+
+inline void float3::clearNAN() {
+    if (this->v[0] != this->v[0]) v[0] = 0; 
+    if (this->v[1] != this->v[1]) v[1] = 0; 
+    if (this->v[2] != this->v[2]) v[2] = 0; 
 }
 
 #endif
