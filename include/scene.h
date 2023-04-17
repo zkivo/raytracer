@@ -11,8 +11,8 @@ using std::vector;
 class Scene {
 
     public:
-        const int MAX_DEPTH = 5;
-        const int SAMPLE_PER_RAY = 2;
+        const int MAX_DEPTH = 10;
+        const int SAMPLE_PER_RAY = 20;
         Camera         camera;
         PPM            ppm;
         vector<Sphere> list_sphere;
@@ -20,27 +20,27 @@ class Scene {
         Scene(Camera camera, PPM ppm) :
                 camera(camera) ,
                 ppm(ppm) {
-            list_sphere.push_back(Sphere(float3(0,0,3),
-                                  0.99f,
-                                  float3(100,0,0),
-                                  0, // attenuation
-                                  1, // albedo difuse
-                                  0, // sky diffuse
-                                  0)); //mirror reflection
-            list_sphere.push_back(Sphere(float3(2,0,4),
-                                  1.0f,
+            list_sphere.push_back(Sphere(float3(0,0,4),
+                                  1,
                                   float3(0,0,0),
-                                  0, // attenuation
+                                  0.05, // attenuation
                                   0, // albedo difuse
-                                  1, // sky diffuse
-                                  0)); //mirror reflection
-            list_sphere.push_back(Sphere(float3(-2,0,4),
+                                  0, // sky diffuse
+                                  1)); //mirror reflection
+            list_sphere.push_back(Sphere(float3(2,0,3),
                                   1.0f,
-                                  float3(0,0,200),
-                                  0, // attenuation
-                                  1, // albedo difuse
-                                  1, // sky diffuse
-                                  0)); //mirror reflection
+                                  float3(100,50,50),
+                                  0.2, // attenuation
+                                  0.3, // albedo difuse
+                                  0.3, // sky diffuse
+                                  0.15)); //mirror reflection
+            list_sphere.push_back(Sphere(float3(-2,0,3),
+                                  1.0f,
+                                  float3(50,100,50),
+                                  0.2, // attenuation
+                                  0.3, // albedo difuse
+                                  0.3, // sky diffuse
+                                  0.15)); //mirror reflection
         }
 
         void   render();

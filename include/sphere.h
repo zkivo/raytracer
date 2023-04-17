@@ -33,7 +33,7 @@ class Sphere {
 
         Sphere(float3 center, 
                float radius,
-               float3 abledo,
+               float3 albedo,
                float attenuation,
                float albedo_diffuse,
                float sky_diffuse,
@@ -83,6 +83,9 @@ inline HasHit Sphere::hasHit(Ray& ray) {
         ret.hit = true;
         ret.hit_point = ray.at(t);
         ret.normal = (ret.hit_point - center).get_normalize();
+        if (ray.direction * (ret.hit_point - ray.origin) < 0) {
+            ret.hit = false;
+        }
         ret.hit_sphere = (void*)this;
     }
     return ret;

@@ -19,6 +19,7 @@ class float3 {
         float3 cross(const float3& e);
         float3 unit_vector();
         void   clearNAN();
+        void   clamp(float val);
 
         float3& operator=(const float3& e);
         float3  operator+(const float3& e);
@@ -51,6 +52,12 @@ inline float3::float3(float e1, float e2, float e3) {
     v[0] = e1;
     v[1] = e2;
     v[2] = e3;
+}
+
+inline void float3::clamp(float val) {
+    if (v[0] > val) v[0] = val;
+    if (v[1] > val) v[1] = val;
+    if (v[2] > val) v[2] = val;
 }
 
 inline float float3::lenght() {
