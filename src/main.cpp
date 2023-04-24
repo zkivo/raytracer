@@ -6,10 +6,10 @@
 
 int main() {
     
-    const short height_res   = 1080;
+    const short height_res   = 600;
     const float focal_length = 1;
     const float viewport_height = 1;
-    const float aspect_ratio = 16.0f / 9.0f; 
+    const float aspect_ratio = 21.0f / 9.0f; 
 
     World world(float3(1.0f, 0.0f, 0.0f),
                 float3(0.0f, 1.0f, 0.0f),

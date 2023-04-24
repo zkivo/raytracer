@@ -45,23 +45,23 @@ inline HasHit Sphere::hasHit(Ray& ray) {
     float  b = 2 * (B * (A - C));
     float  c = ((A - C)*(A - C)) - r * r; 
     float  delta = b * b - 4 * a * c;
-    if (delta >= 0) {
-        float t1 = (-b - std::sqrt(delta)) / 2*a; 
-        float t2 = (-b + std::sqrt(delta)) / 2*a;
+    if (delta > 0) {
+        ret.hit = true;
+        float t1 = (-b - std::sqrt(delta)) / 2.0f*a; 
+        float t2 = (-b + std::sqrt(delta)) / 2.0f*a;
         float t;
         float length1 = ray.at(t1).lenght();
         float length2 = ray.at(t2).lenght();
         if (length1 <= length2) {
-            t = t1;
             ret.length_ray = length1;
+            t = t1;
         } else {
-            t = t2;
             ret.length_ray = length2;
+            t = t2;
         }
-        ret.hit = true;
         ret.hit_point = ray.at(t);
         ret.normal = (ret.hit_point - center).get_normalize();
-        if (ray.direction * (ret.hit_point - ray.origin) < 0) {
+        if (ray.direction * (ret.hit_point - ray.origin) <= 0) {
             // if the ray hit the sphere in the opposite direction
             ret.hit = false;
         }

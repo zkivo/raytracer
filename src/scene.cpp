@@ -34,13 +34,13 @@ float3 Scene::getColor(Ray& ray, Sphere* origin_sphere, int depth) {
     }
     if (nearest_hit.hit == false) {
         float y = 0.5*(ray.direction.v[1] + 1.0);
-        return float3(255,225,255)*(1-y) + float3(89,35,225)*y;
+        return float3(255,225,255)*(1-y) + float3(130,178,255)*y;
     } else {
         // has hit a sphere
         Sphere* hit_sphere = (Sphere*)nearest_hit.hit_sphere;
         float3 scatter_direction;
         if (hit_sphere->mirror) {
-            scatter_direction = ray.direction + nearest_hit.normal*std::abs(nearest_hit.normal * ray.direction)*2;
+            scatter_direction = ray.direction - nearest_hit.normal*(nearest_hit.normal * ray.direction) *2;
         } else {
             float3 r_vector = rand_vector().get_normalize();
             scatter_direction = nearest_hit.normal + r_vector;
