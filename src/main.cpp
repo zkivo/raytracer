@@ -6,7 +6,7 @@
 
 int main() {
     
-    const short height_res   = 600;
+    const short height_res   = 1080;
     const float focal_length = 1;
     const float viewport_height = 1;
     const float aspect_ratio = 16.0f / 9.0f; 

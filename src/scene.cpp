@@ -34,33 +34,24 @@ float3 Scene::getColor(Ray& ray, Sphere* origin_sphere, int depth) {
     }
     if (nearest_hit.hit == false) {
         float y = 0.5*(ray.direction.v[1] + 1.0);
-        return float3(255,255,255)*(1-y) + float3(100,200,255)*y;
+        return float3(255,225,255)*(1-y) + float3(89,35,225)*y;
     } else {
         // has hit a sphere
-        float3 r_vector = rand_vector().get_normalize();
-        float3 scatter_direction = nearest_hit.normal + r_vector;
+        Sphere* hit_sphere = (Sphere*)nearest_hit.hit_sphere;
+        float3 scatter_direction;
+        if (hit_sphere->mirror) {
+            scatter_direction = ray.direction + nearest_hit.normal*std::abs(nearest_hit.normal * ray.direction)*2;
+        } else {
+            float3 r_vector = rand_vector().get_normalize();
+            scatter_direction = nearest_hit.normal + r_vector;
+        }     
         scatter_direction.normalize();
         Ray scatter_ray(nearest_hit.hit_point, scatter_direction);
-        float3 mirror_direction = ray.direction + nearest_hit.normal*std::abs(nearest_hit.normal * ray.direction)*2;
-        mirror_direction.normalize();
-        Ray mirror_ray(nearest_hit.hit_point, mirror_direction);
-        Sphere* hit_sphere = (Sphere*)nearest_hit.hit_sphere;
-        float3 ambient_color = getColor(scatter_ray, hit_sphere, depth - 1);
-        float3 mirror_color = getColor(mirror_ray,  hit_sphere, depth - 1);
-        float energy = ambient_color.lenght();
-        float3 color1 = (ambient_color.get_normalize() *
-                        (hit_sphere->sky_diffuse * energy));
-        float3 color2 = (hit_sphere->albedo.get_normalize() * 
-                        (hit_sphere->albedo_diffuse * energy));
-        float3 color3 = (mirror_color.get_normalize() * 
-                        (hit_sphere->mirror_reflection * energy));
-        color1.clearNAN();
-        color2.clearNAN();
-        color3.clearNAN();
-        color1.clamp(255);
-        color2.clamp(255);
-        color3.clamp(255);
-        float3 color = color1 + color2 + color3;
+        float3 color = getColor(scatter_ray, hit_sphere, depth - 1);
+        color.v[0] *= hit_sphere->albedo.v[0];
+        color.v[1] *= hit_sphere->albedo.v[1];
+        color.v[2] *= hit_sphere->albedo.v[2];
+        color.clearNAN();
         return color;
     }
 }
