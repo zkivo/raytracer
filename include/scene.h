@@ -14,7 +14,7 @@ class Scene {
 
     public:
         const int MAX_DEPTH = 10;
-        const int SAMPLE_PER_RAY = 240;
+        const int SAMPLE_PER_RAY = 50;
         Camera         camera;
         PPM            ppm;
         vector<Sphere> list_sphere;
@@ -29,12 +29,16 @@ class Scene {
         Scene(Camera camera, PPM ppm) :
                 camera(camera) ,
                 ppm(ppm) {
+            list_sphere.push_back(Sphere(float3(0,-101.1,0),
+                                  float3(0.95,0,0),
+                                  100,
+                                  false));
             list_sphere.push_back(Sphere(float3(0,0,4.45),
                                   float3(0.9,0.9,0.9),
                                   1,
                                   true));
             list_sphere.push_back(Sphere(float3(2,0,4),
-                                  float3(0.95,0.95,0.95),
+                                  float3(0.2,0.67,0.8),
                                   1,
                                   false));
             list_sphere.push_back(Sphere(float3(-2,0,4),
