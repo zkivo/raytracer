@@ -11,12 +11,13 @@ class PPM {
     private:
         int  height;
         int  width;
-        int  index_map;
         unsigned char *map;
     public:
         PPM(int width, int height);
 
-        bool add_pixel(unsigned char,
+        void set_pixel(int x,
+                       int y,
+                       unsigned char,
                        unsigned char,
                        unsigned char);
 

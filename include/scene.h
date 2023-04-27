@@ -14,7 +14,7 @@ class Scene {
 
     public:
         const int MAX_DEPTH = 10;
-        const int SAMPLE_PER_RAY = 50;
+        const int SAMPLE_PER_RAY = 25;
         Camera         camera;
         PPM            ppm;
         vector<Sphere> list_sphere;

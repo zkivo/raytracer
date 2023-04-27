@@ -57,11 +57,12 @@ float3 Scene::getColor(Ray& ray, Sphere* origin_sphere, int depth) {
 }
 
 void Scene::render() {
-    Ray ray;
-    float3 color;
     std::srand(std::time(nullptr));
+    #pragma omp parallel for
     for (int i = 0; i < camera.vp_height_res; i++) {
         for (int j = 0; j < camera.vp_width_res; j++) {
+            Ray ray;
+            float3 color;
             ray = camera.get_ray(j, i);
             color.v[0] = 0;
             color.v[1] = 0;
@@ -69,7 +70,7 @@ void Scene::render() {
             for (int s = 1; s <= SAMPLE_PER_RAY; s++) {
                 color += getColor(ray, NULL, MAX_DEPTH) / (float)SAMPLE_PER_RAY;
             }
-            ppm.add_pixel(color.v[0], color.v[1], color.v[2]);
+            ppm.set_pixel(j, i, color.v[0], color.v[1], color.v[2]);
         }
     }
     ppm.write_file("output.ppm");

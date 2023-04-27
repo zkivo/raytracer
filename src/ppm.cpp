@@ -6,18 +6,13 @@
 PPM::PPM(int width, int height) : width(width), 
         height(height) {
     map = new unsigned char[width * height * 3];
-    index_map = 0;
 }
 
-bool PPM::add_pixel(unsigned char r, 
-        unsigned char g, unsigned char b) {
-    if (index_map >= width * height * 3) {
-        return false;
-    }
-    map[index_map++] = r;
-    map[index_map++] = g;
-    map[index_map++] = b;
-    return true;
+void PPM::set_pixel(int x, int y,
+        unsigned char r, unsigned char g, unsigned char b) {
+    map[y*width*3 + x*3 + 0] = r;
+    map[y*width*3 + x*3 + 1] = g;
+    map[y*width*3 + x*3 + 2] = b;
 }
 
 bool PPM::write_file(const std::string &filename) {
@@ -28,7 +23,7 @@ bool PPM::write_file(const std::string &filename) {
     file << "P3" << std::endl;
     file << width << " " << height << std::endl;
     file << "255" << std::endl;
-    for (int i = 0; i < index_map; i++) {
+    for (int i = 0; i < 3*width*height; i++) {
         if (i % 3 == 0 && i != 0) {
             file << std::endl;
         }
